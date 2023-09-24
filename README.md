@@ -25,7 +25,7 @@ Para llevar a cabo este proyecto, utilizaremos las siguientes tecnologías y her
 
 - **Motor de juego:** Godot
 - **Lenguaje de programación principal:** Python 
-- **Bibliotecas:** streamlit, pandas, y plotli
+- **Bibliotecas:** streamlit, pandas, y plotly
 - **Bases de datos:** SQLite
 - **Plataformas objetivo:** Web
 
@@ -38,9 +38,9 @@ Para iniciar la aplicación se deberá correr el siguiente código la ventana de
 ---
 
 Proyecto ideado por
-- [Diego Castro Flores]()
-- [Danae Sánchez Gutierrez]()
-- [Esteban Sierra Baccio]()
-- [Maria Fernanda Gonzales Fregoso]()
+- Diego Castro Flores [Dirección General y Game Developer]
+- [Danae Sánchez Gutierrez]() [Server Admin]
+- [Esteban Sierra Baccio]() [Web Developer]
+- Maria Fernanda Gonzales Fregoso [Dirección Artística & Finanzas]
 
 24 de Septiembre del 2023
