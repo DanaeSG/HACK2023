@@ -24,23 +24,25 @@ def mostrarTabla():
 def insertarValores(id_usuario=0,num_nivel=0,num_bloques=0,num_iteraciones=0,num_balas=0):
     conn = sqlite3.connect("prueba.db")
     cur = conn.cursor()
-    cur.execute("INSERT INTO leaderboard (id_usuario,num_nivel,num_bloques,num_iteraciones) VALUES (?,?,?,?);",(user,nivel,bloques,itera))
+    cur.execute("INSERT INTO leaderboard (id_usuario,num_nivel,num_bloques,num_iteraciones,num_balas) VALUES (?,?,?,?,?);",(id_usuario,num_nivel,num_bloques,num_iteraciones,num_balas))
     cur.close()
     conn.commit()
     conn.close()
 
-def obtenerTabla():
+def obtenerTabla(nivel):
     conn = sqlite3.connect("prueba.db")
-    df = pd.read_sql_query('SELECT * FROM leaderboard',conn)
+    df = pd.read_sql_query('SELECT * FROM leaderboard WHERE num_nivel = ' + str(nivel),conn)
     return df
     conn.close()
 
+# Configuración general de la página
 st.set_page_config(
         page_title="Dino Blocks",
         page_icon="./resources/dinoIcon.jpg",
         layout="wide",
     )
 
+# Lector de parámetros (en caso de no encontrar los normaliza)
 variable = st.experimental_get_query_params()
 
 if variable:
@@ -54,34 +56,41 @@ if variable:
     except: itera = 0
     try: balas = variable["num_balas"][0]
     except: balas = 0
-    insertarValores(user,nivel,bloques,itera,balas)
+
 else:
     user = 0
     nivel = 1
     bloques = 0
     balas = 0
+    itera = 0
 
+user = int(user)
+nivel = int(nivel)
+bloques = int(bloques)
+itera = int(itera)
+balas = int(balas)
+insertarValores(user,nivel,bloques,itera,balas)
+
+# body
 st.title("Datos del nivel " + str(nivel))
 
+#Columnas
 col1, col2, col3 = st.columns(3)
-
-
 with col1:
     st.header("Proyectiles")
-    chart_data = obtenerTabla()
+    chart_data = obtenerTabla(int(nivel))
     st.bar_chart(chart_data, x="num_balas", y="num_nivel")
 
     st.button(label="null")
 
 with col2:
     st.header("Ciclos")
-    chart_data = obtenerTabla()
+    chart_data = obtenerTabla(nivel)
     st.bar_chart(chart_data,x="num_iteraciones", y="num_nivel")
-
 
 with col3:
     st.header("Bloques")
-    chart_data = obtenerTabla()
+    chart_data = obtenerTabla(nivel)
     st.bar_chart(chart_data,x="num_bloques", y="num_nivel")
 
     st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
@@ -91,7 +100,3 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 Dui sapien eget mi proin sed libero enim sed faucibus. Ultrices neque ornare aenean euismod elementum. Purus sit amet volutpat consequat mauris nunc congue nisi. Pellentesque diam volutpat commodo sed egestas egestas. Aliquet porttitor lacus luctus accumsan tortor posuere. A diam maecenas sed enim ut sem viverra aliquet eget. Quam id leo in vitae. Consequat id porta nibh venenatis cras sed. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla. Amet porttitor eget dolor morbi non arcu risus. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Sollicitudin nibh sit amet commodo. Non curabitur gravida arcu ac tortor dignissim convallis aenean et.
 """
-
-
-
-st.write("HELLO WORLD")
