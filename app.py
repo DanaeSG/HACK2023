@@ -11,8 +11,10 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-import matplotlib.pyplot as plt
 import numpy as np
+import scipy
+import plotly.express as px
+
 
 #Functions
 def mostrarTabla():
@@ -20,6 +22,16 @@ def mostrarTabla():
     df = pd.read_sql_query('SELECT * FROM leaderboard',conn)
     st.write(df)
     conn.close()
+
+def borrarValores():
+    conn = sqlite3.connect("prueba.db")
+    cur = conn.cursor()
+    cur.execute("DELETE FROM leaderboard WHERE num_nivel > 0;")
+    cur.close()
+    conn.commit()
+    conn.close()
+
+# borrarValores()
 
 def insertarValores(id_usuario=0,num_nivel=0,num_bloques=0,num_iteraciones=0,num_balas=0):
     conn = sqlite3.connect("prueba.db")
@@ -69,7 +81,16 @@ nivel = int(nivel)
 bloques = int(bloques)
 itera = int(itera)
 balas = int(balas)
-insertarValores(user,nivel,bloques,itera,balas)
+#insertarValores(user,nivel,bloques,itera,balas)
+
+# Llenar tabla con valores para demo
+# for i in range (50):
+#     user = np.random.randint(0,201)
+#     nivel = np.random.randint(1,4)
+#     bloques = np.random.randint(1,201)
+#     itera = np.random.randint(1,501)
+#     balas =  np.random.randint(1,1001)
+#     insertarValores(user,nivel,bloques,itera,balas)
 
 # body
 st.title("Datos del nivel " + str(nivel))
@@ -77,23 +98,108 @@ st.title("Datos del nivel " + str(nivel))
 #Columnas
 col1, col2, col3 = st.columns(3)
 with col1:
+    mostrarTabla()
     st.header("Proyectiles")
-    chart_data = obtenerTabla(int(nivel))
-    st.bar_chart(chart_data, x="num_balas", y="num_nivel")
+    # grafica
+    x1 = obtenerTabla(int(nivel))['num_balas']
+    
+    hist_data = [x1]
+   
+    group_labels = ['Proyectiles']
+    colors = ['#A56CC1']
+    	
+    x1
+    # Create distplot with curve_type set to 'normal'
+    fig = px.histogram(hist_data,  x=x1, color_discrete_sequence=colors)
 
-    st.button(label="null")
+   # Obtén el valor máximo de la frecuencia en el histograma
+    max_frecuencia = x1.value_counts().max()
+
+    # Obtén el valor del último registro
+    ultimo_registro = x1.iloc[-1]
+
+    # Agrega una línea vertical en la posición del último registro
+    fig.add_shape(
+        type='line',
+        x0=ultimo_registro,
+        x1=ultimo_registro,
+        y0=0,
+        y1=max_frecuencia,  
+        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+    )
+
+    # Add title
+    fig.update_layout(title_text='Proyectiles')
+    st.plotly_chart(fig, use_container_width=True)
+
+    if(int(nivel)-1 > 1):
+        st.link_button("Previous Level", "./?num_nivel=" + str(int(nivel)-1))
 
 with col2:
     st.header("Ciclos")
-    chart_data = obtenerTabla(nivel)
-    st.bar_chart(chart_data,x="num_iteraciones", y="num_nivel")
+    # grafica
+    x2 = obtenerTabla(int(nivel))['num_iteraciones']
+    hist_data2 = [x2]
+    group_labels2 = ['Ciclos']
+    colors2 = ['#A6ACEC']
+    x2
+    # Create distplot with curve_type set to 'normal'
+    fig2 = px.histogram(hist_data2,  x=x2, color_discrete_sequence=colors2)
+
+   # Obtén el valor máximo de la frecuencia en el histograma
+    max_frecuencia = x2.value_counts().max()
+
+    # Obtén el valor del último registro
+    ultimo_registro = x2.iloc[-1]
+
+    # Agrega una línea vertical en la posición del último registro
+    fig2.add_shape(
+        type='line',
+        x0=ultimo_registro,
+        x1=ultimo_registro,
+        y0=0,
+        y1=max_frecuencia,  
+        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+    )
+    # Add title
+    fig2.update_layout(title_text='Ciclos')
+    st.plotly_chart(fig2, use_container_width=True)
 
 with col3:
     st.header("Bloques")
-    chart_data = obtenerTabla(nivel)
-    st.bar_chart(chart_data,x="num_bloques", y="num_nivel")
+    # grafica
+    x3 = obtenerTabla(int(nivel))['num_bloques']
+    hist_data3 = [x3]
+    group_labels3 = ['Bloques']
+    colors3 = ['#63F5EF']
+    x3
 
-    st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
+    # Create distplot with curve_type set to 'normal'
+    fig3 = px.histogram(hist_data3, x=x3, color_discrete_sequence=colors3)
+
+    # Obtén el valor máximo de la frecuencia en el histograma
+    max_frecuencia = x3.value_counts().max()
+
+    # Obtén el valor del último registro
+    ultimo_registro = x3.iloc[-1]
+
+    # Agrega una línea vertical en la posición del último registro
+    fig3.add_shape(
+        type='line',
+        x0=ultimo_registro,
+        x1=ultimo_registro,
+        y0=0,
+        y1=max_frecuencia,  
+        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+    )
+
+
+    # Add title
+    fig3.update_layout(title_text='Bloques')
+    st.plotly_chart(fig3, use_container_width=True)
+
+    if(int(nivel)+1 <= 3):
+        st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
 
 """
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat ac felis donec et. A lacus vestibulum sed arcu non. Morbi tristique senectus et netus et malesuada fames. In eu mi bibendum neque egestas congue. Massa placerat duis ultricies lacus sed. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Lorem ipsum dolor sit amet consectetur. Quisque egestas diam in arcu cursus euismod quis viverra. Ultrices sagittis orci a scelerisque purus semper eget duis at. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Est velit egestas dui id ornare arcu. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Malesuada pellentesque elit eget gravida cum sociis natoque. Eu augue ut lectus arcu bibendum at. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum. Quam pellentesque nec nam aliquam. Elit at imperdiet dui accumsan sit. Tempus imperdiet nulla malesuada pellentesque elit. Mattis nunc sed blandit libero volutpat sed cras ornare arcu.
