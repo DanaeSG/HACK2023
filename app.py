@@ -162,6 +162,8 @@ with col2:
     fig2.update_layout(title_text='Ciclos')
     st.plotly_chart(fig2, use_container_width=True)
 
+    st.link_button("Launch Game", "http://127.0.0.42:8080/Escritorio/hack2023/Dinosaurio/")
+
 with col3:
     st.header("Bloques")
     # grafica
