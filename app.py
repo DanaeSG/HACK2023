@@ -98,7 +98,6 @@ st.title("Datos del nivel " + str(nivel))
 #Columnas
 col1, col2, col3 = st.columns(3)
 with col1:
-    mostrarTabla()
     st.header("Proyectiles")
     # grafica
     x1 = obtenerTabla(int(nivel))['num_balas']
@@ -108,7 +107,6 @@ with col1:
     group_labels = ['Proyectiles']
     colors = ['#A56CC1']
     	
-    x1
     # Create distplot with curve_type set to 'normal'
     fig = px.histogram(hist_data,  x=x1, color_discrete_sequence=colors)
 
@@ -132,7 +130,7 @@ with col1:
     fig.update_layout(title_text='Proyectiles')
     st.plotly_chart(fig, use_container_width=True)
 
-    if(int(nivel)-1 > 1):
+    if(int(nivel)-1 >= 1):
         st.link_button("Previous Level", "./?num_nivel=" + str(int(nivel)-1))
 
 with col2:
@@ -142,7 +140,6 @@ with col2:
     hist_data2 = [x2]
     group_labels2 = ['Ciclos']
     colors2 = ['#A6ACEC']
-    x2
     # Create distplot with curve_type set to 'normal'
     fig2 = px.histogram(hist_data2,  x=x2, color_discrete_sequence=colors2)
 
@@ -172,7 +169,6 @@ with col3:
     hist_data3 = [x3]
     group_labels3 = ['Bloques']
     colors3 = ['#63F5EF']
-    x3
 
     # Create distplot with curve_type set to 'normal'
     fig3 = px.histogram(hist_data3, x=x3, color_discrete_sequence=colors3)
