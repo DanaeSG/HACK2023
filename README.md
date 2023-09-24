@@ -2,11 +2,12 @@
 
 <img src="resources/dinoIcon.png" alt="drawing" width="70"/>
 
-¡Bienvenidos, equipo de desarrollo de Dino Blocks! Este documento servirá como guía central para nuestro emocionante proyecto de desarrollo de la aplicación "Dino Blocks", diseñada para enseñar programación de manera divertida a niños de todas las edades.
+
+¡Bienvenidos a Dino Blocks! Este documento servirá como guía central para el  proyecto de desarrollo de la aplicación "Dino Blocks", diseñada para enseñar programación de manera divertida a niños de todas las edades.
 
 ## **Objetivo del Proyecto**
 
-El objetivo principal de CodeKids es crear una plataforma educativa atractiva que permita a los niños aprender programación de una manera divertida y envolvente. Queremos fomentar habilidades como el pensamiento lógico, la resolución de problemas y la creatividad desde una edad temprana.
+El objetivo principal de Dino Blocks es crear una plataforma educativa atractiva que permita a los niños aprender programación de una manera divertida y envolvente. Queremos fomentar habilidades como el pensamiento lógico, la resolución de problemas y la creatividad desde una edad temprana.
 
 ## **Características Destacadas**
 
@@ -28,9 +29,11 @@ Para llevar a cabo este proyecto, utilizaremos las siguientes tecnologías y her
 - **Bases de datos:** SQLite
 - **Plataformas objetivo:** Web
 
------
+## Recursos
+Para iniciar la aplicación se deberá correr el siguiente código la ventana de comandos abierta en la carpeta principal:
+`streamlit run app.py`
 
-¡Gracias por ser parte de este emocionante viaje para crear CodeKids! Juntos, haremos que la programación sea accesible y emocionante para los niños de todo el mundo.
+¡Gracias por ser parte de este emocionante viaje de Dino BLocks! Juntos, haremos que la programación sea accesible y emocionante para los niños de todo el mundo.
 
 ---
 
