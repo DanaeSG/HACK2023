@@ -1,6 +1,6 @@
 # **Dino blocks: Aprende Programación Jugando**
 
-<img src="resources/dinoIcon.png" alt="drawing" width="200"/>
+<img src="resources/dinoIcon.png" alt="drawing" width="50"/>
 
 Bienvenido a **Dino blocks**, la página web que hace que aprender programación sea divertido y accesible para para niños de todas las edades. Nuestro objetivo es inspirar a la próxima generación de programadores y fomentar el pensamiento lógico y la creatividad desde una edad temprana.
 
