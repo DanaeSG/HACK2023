@@ -5,13 +5,16 @@
 
 #http://localhost:8501/?id_usuario=10&num_nivel=10&num_bloques=10&num_iteraciones=10&num_balas=10
 
+# Run the code: streamlit run app.py
 
-# Run the code: streamlit run pruebahack.py
-
+# Libraries
 import streamlit as st
 import pandas as pd
 import sqlite3
+import matplotlib.pyplot as plt
+import numpy as np
 
+#Functions
 def mostrarTabla():
     conn = sqlite3.connect("prueba.db")
     df = pd.read_sql_query('SELECT * FROM leaderboard',conn)
@@ -26,31 +29,69 @@ def insertarValores(id_usuario=0,num_nivel=0,num_bloques=0,num_iteraciones=0,num
     conn.commit()
     conn.close()
 
-st.title("Datos de Hack2023")
+def obtenerTabla():
+    conn = sqlite3.connect("prueba.db")
+    df = pd.read_sql_query('SELECT * FROM leaderboard',conn)
+    return df
+    conn.close()
+
+st.set_page_config(
+        page_title="Dino Blocks",
+        page_icon="./resources/dinoIcon.jpg",
+        layout="wide",
+    )
 
 variable = st.experimental_get_query_params()
-mostrarTabla()
 
 if variable:
-    print("Un nuevo registro!")
-    user = variable["id_usuario"] 
-    user = user[0]#Foreign key
-    nivel = variable["num_nivel"]
-    nivel = nivel[0]
-    bloques = variable["num_bloques"]
-    bloques = bloques[0]
-    itera = variable["num_iteraciones"]
-    itera = itera[0]
-    balas = variable["num_balas"]
-    balas = balas[0]
+    try: user = variable["id_usuario"][0]
+    except: user = 0
+    try: nivel = variable["num_nivel"][0]
+    except: nivel = 1
+    try: bloques = variable["num_bloques"][0]
+    except: bloques = 0
+    try: itera = variable["num_iteraciones"][0]
+    except: itera = 0
+    try: balas = variable["num_balas"][0]
+    except: balas = 0
     insertarValores(user,nivel,bloques,itera,balas)
 else:
-    print("una nueva vista")
+    user = 0
+    nivel = 1
+    bloques = 0
+    balas = 0
+
+st.title("Datos del nivel " + str(nivel))
+
+col1, col2, col3 = st.columns(3)
 
 
+with col1:
+    st.header("Proyectiles")
+    chart_data = obtenerTabla()
+    st.bar_chart(chart_data, x="num_balas", y="num_nivel")
+
+    st.button(label="null")
+
+with col2:
+    st.header("Ciclos")
+    chart_data = obtenerTabla()
+    st.bar_chart(chart_data,x="num_iteraciones", y="num_nivel")
 
 
-mostrarTabla()
+with col3:
+    st.header("Bloques")
+    chart_data = obtenerTabla()
+    st.bar_chart(chart_data,x="num_bloques", y="num_nivel")
+
+    st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
+
+"""
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat ac felis donec et. A lacus vestibulum sed arcu non. Morbi tristique senectus et netus et malesuada fames. In eu mi bibendum neque egestas congue. Massa placerat duis ultricies lacus sed. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Lorem ipsum dolor sit amet consectetur. Quisque egestas diam in arcu cursus euismod quis viverra. Ultrices sagittis orci a scelerisque purus semper eget duis at. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Est velit egestas dui id ornare arcu. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Malesuada pellentesque elit eget gravida cum sociis natoque. Eu augue ut lectus arcu bibendum at. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum. Quam pellentesque nec nam aliquam. Elit at imperdiet dui accumsan sit. Tempus imperdiet nulla malesuada pellentesque elit. Mattis nunc sed blandit libero volutpat sed cras ornare arcu.
+
+Dui sapien eget mi proin sed libero enim sed faucibus. Ultrices neque ornare aenean euismod elementum. Purus sit amet volutpat consequat mauris nunc congue nisi. Pellentesque diam volutpat commodo sed egestas egestas. Aliquet porttitor lacus luctus accumsan tortor posuere. A diam maecenas sed enim ut sem viverra aliquet eget. Quam id leo in vitae. Consequat id porta nibh venenatis cras sed. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla. Amet porttitor eget dolor morbi non arcu risus. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Sollicitudin nibh sit amet commodo. Non curabitur gravida arcu ac tortor dignissim convallis aenean et.
+"""
+
 
 
 st.write("HELLO WORLD")
