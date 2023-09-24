@@ -38,9 +38,9 @@ Para iniciar la aplicación se deberá correr el siguiente código la ventana de
 ---
 
 Proyecto ideado por
-- Diego Castro Flores [Dirección General y Game Developer]
+- [Diego Castro Flores]() [Dirección General y Game Developer]
 - [Danae Sánchez Gutierrez]() [Server Admin]
 - [Esteban Sierra Baccio]() [Web Developer]
-- Maria Fernanda Gonzales Fregoso [Dirección Artística & Finanzas]
+- [Maria Fernanda Gonzales Fregoso]() [Dirección Artística & Finanzas]
 
 24 de Septiembre del 2023
