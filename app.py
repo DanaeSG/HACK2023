@@ -1,4 +1,9 @@
-#http://localhost:8501/?id_usuario=123&num_nivel=123&num_bloques=0&num_iteraciones=0&
+"""
+    Esteban Sierra Baccio
+    24 Sep 2023
+"""
+
+#http://localhost:8501/?id_usuario=10&num_nivel=10&num_bloques=10&num_iteraciones=10&num_balas=10
 
 
 # Run the code: streamlit run pruebahack.py
@@ -7,64 +12,45 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 
-st.set_page_config(layout="wide")
-col1, col2, col3 = st.columns(3)
+def mostrarTabla():
+    conn = sqlite3.connect("prueba.db")
+    df = pd.read_sql_query('SELECT * FROM leaderboard',conn)
+    st.write(df)
+    conn.close()
 
-with col1:   
-    def mostrarTabla1():
-        conn = sqlite3.connect("prueba.db")
-        df = pd.read_sql_query('SELECT * FROM leaderboard WHERE nivel == 1',conn)
-        st.write(df)
-        conn.close()
-
-with col2:   
-    def mostrarTabla2():
-        conn = sqlite3.connect("prueba.db")
-        df = pd.read_sql_query('SELECT * FROM leaderboard WHERE nivel == 2',conn)
-        st.write(df)
-        conn.close()
-
-with col3:   
-    def mostrarTabla2():
-        conn = sqlite3.connect("prueba.db")
-        df = pd.read_sql_query('SELECT * FROM leaderboard WHERE nivel == 3',conn)
-        st.write(df)
-        conn.close()
-
-variable = st.experimental_get_query_params()
-
-user = variable["id_usuario"] 
-user = user[0]#Foreign key
-nivel = variable["num_nivel"]
-nivel = nivel[0]
-bloques = variable["num_bloques"]
-bloques = bloques[0]
-itera = variable["num_iteraciones"]
-itera = itera[0]
-balas = variable["num_balas"]
-balas = balas[0]
-
-def insertarValores(id_usuario=0,num_nivel=0,num_balas=0,num_bloques=0,num_iteraciones=0):
+def insertarValores(id_usuario=0,num_nivel=0,num_bloques=0,num_iteraciones=0,num_balas=0):
     conn = sqlite3.connect("prueba.db")
     cur = conn.cursor()
-    cur.execute("INSERT INTO leaderboard (id_usuario,num_nivel,num_bloques,num_iteraciones, num_balas,nivel) VALUES (?,?,?,?,?,?);",(user,nivel,bloques,itera,balas,nivel))
+    cur.execute("INSERT INTO leaderboard (id_usuario,num_nivel,num_bloques,num_iteraciones) VALUES (?,?,?,?);",(user,nivel,bloques,itera))
     cur.close()
     conn.commit()
     conn.close()
 
-mostrarTabla()
-insertarValores(variable)
-mostrarTabla()
-
-st.title("Aplicación de Streamlit con SQLite")
-
+st.title("Datos de Hack2023")
 
 variable = st.experimental_get_query_params()
+mostrarTabla()
 
-print(user) #Foreign key
-#variable["num_nivel"]
-#variable["num_tiempo"]
-#variable["num_bloques"]
-#variable["num_iteraciones"]
+if variable:
+    print("Un nuevo registro!")
+    user = variable["id_usuario"] 
+    user = user[0]#Foreign key
+    nivel = variable["num_nivel"]
+    nivel = nivel[0]
+    bloques = variable["num_bloques"]
+    bloques = bloques[0]
+    itera = variable["num_iteraciones"]
+    itera = itera[0]
+    balas = variable["num_balas"]
+    balas = balas[0]
+    insertarValores(user,nivel,bloques,itera,balas)
+else:
+    print("una nueva vista")
+
+
+
+
+mostrarTabla()
+
 
 st.write("HELLO WORLD")
