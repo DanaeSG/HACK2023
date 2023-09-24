@@ -11,11 +11,8 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-import numpy as np
-import scipy
 import plotly.express as px
-from PIL import Image
-
+import streamlit as st
 
 #Functions
 def mostrarTabla():
@@ -51,7 +48,7 @@ def obtenerTabla(nivel):
 # Configuración general de la página
 st.set_page_config(
         page_title="Dino Blocks",
-        page_icon="./resources/dinoIcon.jpg",
+        page_icon="./resources/dinoIcon.png",
         layout="wide",
     )
 
@@ -72,7 +69,7 @@ if variable:
 
 else:
     user = 0
-    nivel = 1
+    nivel = 0
     bloques = 0
     balas = 0
     itera = 0
@@ -93,117 +90,193 @@ balas = int(balas)
 #     balas =  np.random.randint(1,1001)
 #     insertarValores(user,nivel,bloques,itera,balas)
 
-# body
-st.title("Datos del nivel " + str(nivel))
 
-#Columnas
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.header("Proyectiles")
-    # grafica
-    x1 = obtenerTabla(int(nivel))['num_balas']
-    
-    hist_data = [x1]
-   
-    group_labels = ['Proyectiles']
-    colors = ['#A56CC1']
-    	
-    # Create distplot with curve_type set to 'normal'
-    fig = px.histogram(hist_data,  x=x1, color_discrete_sequence=colors)
+if nivel < 1:
+     # Agregar HTML y CSS personalizado para posicionar la imagen en la esquina superior derecha
+    st.markdown(
+        """
+        <style>
+        /* Estilo para el contenedor principal */
+        .image-container {
+            position: relative;
+        }
 
-   # Obtén el valor máximo de la frecuencia en el histograma
-    max_frecuencia = x1.value_counts().max()
-
-    # Obtén el valor del último registro
-    ultimo_registro = x1.iloc[-1]
-
-    # Agrega una línea vertical en la posición del último registro
-    fig.add_shape(
-        type='line',
-        x0=ultimo_registro,
-        x1=ultimo_registro,
-        y0=0,
-        y1=max_frecuencia,  
-        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+        /* Estilo para la imagen */
+        .image-container img {
+            position: absolute;
+            right: 10px; /* Ajusta el valor para cambiar la posición horizontal */
+            max-width: 500px; /* Ajusta el valor para cambiar el tamaño máximo */
+        }
+        </style>
+        """
+        , unsafe_allow_html=True
     )
 
-    # Add title
-    fig.update_layout(title_text='Proyectiles')
-    st.plotly_chart(fig, use_container_width=True)
+    # Mostrar la imagen dentro del contenedor personalizado
+    with st.container():
+        st.markdown('<div class="image-container"><img src="https://danaesg.github.io/HACK2023/resources/dinoIcon.png"></div>', unsafe_allow_html=True)
 
-    if(int(nivel)-1 >= 1):
-        st.link_button("Previous Level", "./?num_nivel=" + str(int(nivel)-1))
+    st.title("Dino Blocks")
+    import streamlit as st
 
-with col2:
-    st.header("Ciclos")
-    # grafica
-    x2 = obtenerTabla(int(nivel))['num_iteraciones']
-    hist_data2 = [x2]
-    group_labels2 = ['Ciclos']
-    colors2 = ['#A6ACEC']
-    # Create distplot with curve_type set to 'normal'
-    fig2 = px.histogram(hist_data2,  x=x2, color_discrete_sequence=colors2)
+    # Agregar CSS personalizado para estilizar el botón
+    st.markdown(
+        """
+        <style>
+        /* Estilo para el botón de enlace */
+        .custom-link-button {
+            background-color: #A56CC1;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 30px;
+            margin: 10px;
+        }
 
-   # Obtén el valor máximo de la frecuencia en el histograma
-    max_frecuencia = x2.value_counts().max()
+        /* Estilo para el botón de enlace al pasar el mouse sobre él */
+        .custom-link-button:hover {
+            background-color: #0056b3;
+        }
 
-    # Obtén el valor del último registro
-    ultimo_registro = x2.iloc[-1]
-
-    # Agrega una línea vertical en la posición del último registro
-    fig2.add_shape(
-        type='line',
-        x0=ultimo_registro,
-        x1=ultimo_registro,
-        y0=0,
-        y1=max_frecuencia,  
-        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+        .custom-link-button:active,
+        .custom-link-button:visited {
+        color: white;
+        }
+        </style>
+        """
+        , unsafe_allow_html=True
     )
-    # Add title
-    fig2.update_layout(title_text='Ciclos')
-    st.plotly_chart(fig2, use_container_width=True)
 
-    st.link_button("Launch Game", "https://danaesg.github.io/HACK2023/Dinosaurio/index.html")
+    # Enlace de botón personalizado
+    st.markdown('<a href="http://localhost:8501/?num_nivel=1" class="custom-link-button">Begin</a>', unsafe_allow_html=True)
+
+else:
+    # Agregar HTML y CSS personalizado para posicionar la imagen en la esquina superior derecha
+    st.markdown(
+        """
+        <style>
+        /* Estilo para el contenedor principal */
+        .image-container {
+            position: relative;
+        }
+
+        /* Estilo para la imagen */
+        .image-container img {
+            position: absolute;
+            right: 10px; /* Ajusta el valor para cambiar la posición horizontal */
+            max-width: 200px; /* Ajusta el valor para cambiar el tamaño máximo */
+        }
+        </style>
+        """
+        , unsafe_allow_html=True
+    )
+
+    # Mostrar la imagen dentro del contenedor personalizado
+    with st.container():
+        st.markdown('<div class="image-container"><img src="https://danaesg.github.io/HACK2023/resources/dinoIcon.png"></div>', unsafe_allow_html=True)
+
+    st.title("Dino Blocks")
+
+    # body
+    st.header("Datos del nivel " + str(nivel))
+
+    #Columnas
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown("<h3>Proyectiles</h3>", unsafe_allow_html=True)
+        # grafica
+        x1 = obtenerTabla(int(nivel))['num_balas']
+        
+        hist_data = [x1]
     
-with col3:
-    st.header("Bloques")
-    # grafica
-    x3 = obtenerTabla(int(nivel))['num_bloques']
-    hist_data3 = [x3]
-    group_labels3 = ['Bloques']
-    colors3 = ['#63F5EF']
-
-    # Create distplot with curve_type set to 'normal'
-    fig3 = px.histogram(hist_data3, x=x3, color_discrete_sequence=colors3)
+        group_labels = ['Proyectiles']
+        colors = ['#A56CC1']
+            
+        # Create distplot with curve_type set to 'normal'
+        fig = px.histogram(hist_data,  x=x1, color_discrete_sequence=colors)
 
     # Obtén el valor máximo de la frecuencia en el histograma
-    max_frecuencia = x3.value_counts().max()
+        max_frecuencia = x1.value_counts().max()
 
-    # Obtén el valor del último registro
-    ultimo_registro = x3.iloc[-1]
+        # Obtén el valor del último registro
+        ultimo_registro = x1.iloc[-1]
 
-    # Agrega una línea vertical en la posición del último registro
-    fig3.add_shape(
-        type='line',
-        x0=ultimo_registro,
-        x1=ultimo_registro,
-        y0=0,
-        y1=max_frecuencia,  
-        line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
-    )
+        # Agrega una línea vertical en la posición del último registro
+        fig.add_shape(
+            type='line',
+            x0=ultimo_registro,
+            x1=ultimo_registro,
+            y0=0,
+            y1=max_frecuencia,  
+            line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+        )
 
+        st.plotly_chart(fig, use_container_width=True)
 
-    # Add title
-    fig3.update_layout(title_text='Bloques')
-    st.plotly_chart(fig3, use_container_width=True)
+        if(int(nivel)-1 >= 1):
+            st.link_button("Previous Level", "./?num_nivel=" + str(int(nivel)-1))
 
-    if(int(nivel)+1 <= 3):
-        st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
+    with col2:
+        st.markdown("<h3>Ciclos</h3>", unsafe_allow_html=True)
+        # grafica
+        x2 = obtenerTabla(int(nivel))['num_iteraciones']
+        hist_data2 = [x2]
+        group_labels2 = ['Ciclos']
+        colors2 = ['#A6ACEC']
+        # Create distplot with curve_type set to 'normal'
+        fig2 = px.histogram(hist_data2,  x=x2, color_discrete_sequence=colors2)
 
-"""
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat ac felis donec et. A lacus vestibulum sed arcu non. Morbi tristique senectus et netus et malesuada fames. In eu mi bibendum neque egestas congue. Massa placerat duis ultricies lacus sed. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Lorem ipsum dolor sit amet consectetur. Quisque egestas diam in arcu cursus euismod quis viverra. Ultrices sagittis orci a scelerisque purus semper eget duis at. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Est velit egestas dui id ornare arcu. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Malesuada pellentesque elit eget gravida cum sociis natoque. Eu augue ut lectus arcu bibendum at. Vivamus arcu felis bibendum ut tristique et egestas quis ipsum. Quam pellentesque nec nam aliquam. Elit at imperdiet dui accumsan sit. Tempus imperdiet nulla malesuada pellentesque elit. Mattis nunc sed blandit libero volutpat sed cras ornare arcu.
+    # Obtén el valor máximo de la frecuencia en el histograma
+        max_frecuencia = x2.value_counts().max()
 
-Dui sapien eget mi proin sed libero enim sed faucibus. Ultrices neque ornare aenean euismod elementum. Purus sit amet volutpat consequat mauris nunc congue nisi. Pellentesque diam volutpat commodo sed egestas egestas. Aliquet porttitor lacus luctus accumsan tortor posuere. A diam maecenas sed enim ut sem viverra aliquet eget. Quam id leo in vitae. Consequat id porta nibh venenatis cras sed. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla. Amet porttitor eget dolor morbi non arcu risus. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Sollicitudin nibh sit amet commodo. Non curabitur gravida arcu ac tortor dignissim convallis aenean et.
-"""
-with col3:
-    st.image('https://danaesg.github.io/HACK2023/resources/dinoIcon.png')
+        # Obtén el valor del último registro
+        ultimo_registro = x2.iloc[-1]
+
+        # Agrega una línea vertical en la posición del último registro
+        fig2.add_shape(
+            type='line',
+            x0=ultimo_registro,
+            x1=ultimo_registro,
+            y0=0,
+            y1=max_frecuencia,  
+            line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+
+        st.link_button("Launch Game", "https://danaesg.github.io/HACK2023/Dinosaurio/index.html")
+        
+    with col3:
+        st.markdown("<h3>Bloques</h3>", unsafe_allow_html=True)
+        # grafica
+        x3 = obtenerTabla(int(nivel))['num_bloques']
+        hist_data3 = [x3]
+        group_labels3 = ['Bloques']
+        colors3 = ['#63F5EF']
+
+        # Create distplot with curve_type set to 'normal'
+        fig3 = px.histogram(hist_data3, x=x3, color_discrete_sequence=colors3)
+
+        # Obtén el valor máximo de la frecuencia en el histograma
+        max_frecuencia = x3.value_counts().max()
+
+        # Obtén el valor del último registro
+        ultimo_registro = x3.iloc[-1]
+
+        # Agrega una línea vertical en la posición del último registro
+        fig3.add_shape(
+            type='line',
+            x0=ultimo_registro,
+            x1=ultimo_registro,
+            y0=0,
+            y1=max_frecuencia,  
+            line=dict(color='red', width=2)  # Puedes personalizar el color y el grosor de la línea.
+        )
+
+        st.plotly_chart(fig3, use_container_width=True)
+
+        if(int(nivel)+1 <= 3):
+            st.link_button("Next Level", "./?num_nivel=" + str(int(nivel)+1))
+
+    st.markdown("<h4>En este primer reto aprenderás del uso de bloques para modificar las propiedades de tu nave. Debes de ayudar a Rexington a destruir todos los meteoritos que se dirigen a su planeta. Utiliza el botón “Mostrar Code” para ver las herramientas que tienes a tu disposición, podrás usar Bloques Condicionales, Temporizadores, y modificadores de propiedades para controlar el comportamiento de tu nave.</h4>", unsafe_allow_html=True)
