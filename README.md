@@ -1,6 +1,8 @@
 # **Documentación de Desarrollo de Dino Blocks**
 
-<img src="resources/dinoIcon.png" alt="drawing" width="50"/>
+<img src="resources/dinoIcon.png" alt="drawing" width="40"/>
+<img src="resources/dinoIcon.png" alt="drawing" width="40"/>
+<img src="resources/dinoIcon.png" alt="drawing" width="40"/>
 
 ¡Bienvenidos, equipo de desarrollo de Dino Blocks! Este documento servirá como guía central para nuestro emocionante proyecto de desarrollo de la aplicación "Dino Blocks", diseñada para enseñar programación de manera divertida a niños de todas las edades.
 
