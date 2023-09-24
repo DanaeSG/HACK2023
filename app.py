@@ -14,6 +14,7 @@ import sqlite3
 import numpy as np
 import scipy
 import plotly.express as px
+from PIL import Image
 
 
 #Functions
@@ -162,8 +163,8 @@ with col2:
     fig2.update_layout(title_text='Ciclos')
     st.plotly_chart(fig2, use_container_width=True)
 
-    st.link_button("Launch Game", "http://127.0.0.42:8080/Escritorio/hack2023/Dinosaurio/")
-
+    st.link_button("Launch Game", "https://danaesg.github.io/HACK2023/Dinosaurio/index.html")
+    
 with col3:
     st.header("Bloques")
     # grafica
@@ -204,3 +205,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 Dui sapien eget mi proin sed libero enim sed faucibus. Ultrices neque ornare aenean euismod elementum. Purus sit amet volutpat consequat mauris nunc congue nisi. Pellentesque diam volutpat commodo sed egestas egestas. Aliquet porttitor lacus luctus accumsan tortor posuere. A diam maecenas sed enim ut sem viverra aliquet eget. Quam id leo in vitae. Consequat id porta nibh venenatis cras sed. Suspendisse ultrices gravida dictum fusce ut placerat orci nulla. Amet porttitor eget dolor morbi non arcu risus. Sed sed risus pretium quam vulputate dignissim suspendisse in est. Sollicitudin nibh sit amet commodo. Non curabitur gravida arcu ac tortor dignissim convallis aenean et.
 """
+with col3:
+    st.image('https://danaesg.github.io/HACK2023/resources/dinoIcon.png')
